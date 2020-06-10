@@ -1,0 +1,1 @@
+# codeCoin-solo-project
