@@ -17,7 +17,7 @@ class BlockChain {
   addTransaction(transaction) {
     let fromAddBalance = this.getBalanceOfAddress(transaction.fromAddress);
     if (fromAddBalance === 0) return console.log('Sorry, your balance is 0. Try to mine the next block to get codeCoins');
-    else if (fromAddBalance < transaction.amount) return console.log('Sorry, you do not have enough money. Try to mine the next block yo get more codeCoins');
+    else if (fromAddBalance < transaction.amount) return console.log('Sorry, you do not have enough money. Try to mine the next block to get more codeCoins');
     else this.pendingTransactions.push(transaction);
   }
 
