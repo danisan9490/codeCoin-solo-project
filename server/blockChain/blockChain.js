@@ -22,28 +22,36 @@ class BlockChain {
   }
 
   mineNewBlock(minerAddress) {
-    //mining the block
-    let date = new Date(Date.now());
-    let oldHash = this.chain[this.chain.length - 1];
-    let block = new Block(date.toString(), this.pendingTransactions);
-    block.previousHash = oldHash.hash;
-    block.mineBlock(this.difficulty);
-    console.log('Block successfully mined');
 
-    //add reward to minerAdress
-    this.chain.push(block);
-    this.pendingTransactions = [
-      new Transaction('codeCoin, thank you for mining the block', minerAddress, this.miningReward)
-    ];
+    if (this.validateBlockChain() === true) {
 
-    //change difficulty
-    // console.log(Date.parse(oldHash.timestamp))
-    // console.log(Date.parse(block.timestamp))
-    const previousDate = Date.parse(block.timestamp);
-    const newDate = Date.parse(oldHash.timestamp);
-    if ((previousDate + 60000) < newDate && this.difficulty > 1) 'this.difficulty--';
-    else this.difficulty++;
-    console.log(this.difficulty);
+      /* -- MINING THE BLOCK --*/
+      console.log(`Block validation: ${this.validateBlockChain()}`);
+      console.log(`Mining the block...`);
+
+      let date = new Date(Date.now());
+      let oldHash = this.chain[this.chain.length - 1];
+      let block = new Block(date.toString(), this.pendingTransactions);
+      block.previousHash = oldHash.hash;
+      block.mineBlock(this.difficulty);
+
+      /* -- ADD REWARD TO MINERADDRESS -- */
+      this.chain.push(block);
+      this.pendingTransactions = [
+        new Transaction('codeCoin reward', minerAddress, this.miningReward)
+      ];
+
+      /* -- CHANGE DIFFICULTY --*/
+      // const previousDate = Date.parse(block.timestamp);
+      // const newDate = Date.parse(oldHash.timestamp);
+      // if ((previousDate + 60000) < newDate && this.difficulty > 1) 'this.difficulty--';
+      // else this.difficulty++;
+      // console.log(`New difficulty: ${this.difficulty}`);
+
+    } else {
+      console.log(`Mining the block...`);
+      console.log(`Error, Block validation: ${this.validateBlockChain()}`);
+    }
   }
 
   getBalanceOfAddress(address) {

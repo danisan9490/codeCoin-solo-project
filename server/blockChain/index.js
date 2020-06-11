@@ -1,18 +1,9 @@
 
 const Block = require('./block');
-const BlockChain = require('./blockChain')
-const Transaction = require('./transaction')
+const BlockChain = require('./blockChain');
+const Transaction = require('./transaction');
 
-let codeCoin = new BlockChain()
-
-// codeCoin.validateBlockChain()
-codeCoin.mineNewBlock('Dani')
-codeCoin.mineNewBlock('Dani')
-
-// codeCoin.addTransaction(new Transaction('Dani', 'Juan', 20))
-codeCoin.getBalanceOfAddress('Dani')
+let codeCoin = new BlockChain();
 
 
-// console.log(JSON.stringify(codeCoin, null, 6))
-
-
+console.log(JSON.stringify(codeCoin, null, 6));

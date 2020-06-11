@@ -3,7 +3,7 @@ class Transaction {
     this.fromAddress = fromAddress;
     this.toAddress = toAddress;
     this.amount = amount;
-  };
+  }
 }
 
 module.exports = Transaction;
