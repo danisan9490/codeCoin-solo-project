@@ -16,9 +16,11 @@ class BlockChain {
 
   addTransaction(transaction) {
     let fromAddBalance = this.getBalanceOfAddress(transaction.fromAddress);
-    if (fromAddBalance === 0) return console.log('Sorry, your balance is 0. Try to mine the next block to get codeCoins');
-    else if (fromAddBalance < transaction.amount) return console.log('Sorry, you do not have enough money. Try to mine the next block to get more codeCoins');
-    else this.pendingTransactions.push(transaction);
+    let fromAddPendingBalance = this.getPendingBalanceFromAddress(transaction.fromAddress);
+    let newBalance = fromAddBalance - fromAddPendingBalance;
+
+    if (newBalance < transaction.amount) return console.log('Sorry, you do not have enough money. Try to mine the next block to get more codeCoins.');
+    else return this.pendingTransactions.push(transaction);
   }
 
   mineNewBlock(minerAddress) {
@@ -42,11 +44,11 @@ class BlockChain {
       ];
 
       /* -- CHANGE DIFFICULTY --*/
-      // const previousDate = Date.parse(block.timestamp);
-      // const newDate = Date.parse(oldHash.timestamp);
-      // if ((previousDate + 60000) < newDate && this.difficulty > 1) 'this.difficulty--';
-      // else this.difficulty++;
-      // console.log(`New difficulty: ${this.difficulty}`);
+      const previousDate = Date.parse(block.timestamp);
+      const newDate = Date.parse(oldHash.timestamp);
+      if ((previousDate + 60000) < newDate && this.difficulty > 1) 'this.difficulty--';
+      else this.difficulty++;
+      console.log(`New difficulty: ${this.difficulty}`);
 
     } else {
       console.log(`Mining the block...`);
@@ -65,6 +67,24 @@ class BlockChain {
     return balance;
   }
 
+  getPendingBalanceFromAddress(address) {
+    let pendingBalanceFromAddress = 0;
+    for (const transaction of this.pendingTransactions) {
+      if (transaction.fromAddress === address) pendingBalanceFromAddress += transaction.amount;
+    }
+    return pendingBalanceFromAddress;
+  }
+
+  getPendingBalanceToAddress(address) {
+    let pendingBalanceToAddress = 0;
+    for (const transaction of this.pendingTransactions) {
+      if (transaction.toAddress === address) pendingBalanceToAddress += transaction.amount;
+    }
+    return pendingBalanceToAddress;
+  }
+
+
+
   validateBlockChain() {
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
@@ -75,6 +95,17 @@ class BlockChain {
     }
     return true;
   }
+
+  // replaceChain(newChain) {
+  //   if (newChain.length <= this.chain.length) {
+  //     console.log('Recived change shorter than current chain');
+  //   } else if (!this.validateBlockChain(newChain)) {
+  //     console.log('New chain not valid');
+  //   } else {
+  //     console.log('Replacing current chain for newchain');
+  //     this.chain = newChain;
+  //   }
+  // }
 
 }
 
