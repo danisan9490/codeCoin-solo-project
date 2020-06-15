@@ -1,7 +1,7 @@
 class Transaction {
-  constructor(fromAddress, toAddress, amount) {
-    this.fromAddress = fromAddress;
-    this.toAddress = toAddress;
+  constructor(fromAddressPublicKey, toAddressPublicKey, amount) {
+    this.fromAddressPublicKey = fromAddressPublicKey;
+    this.toAddressPublicKey = toAddressPublicKey;
     this.amount = amount;
   }
 }

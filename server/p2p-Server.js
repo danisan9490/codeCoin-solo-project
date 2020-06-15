@@ -48,7 +48,7 @@ class Peer {
       }
       this.peers[peerId].conn = conn;
       this.peers[peerId].seq = seq;
-      this.connSeq++
+      this.connSeq++;
     });
 
   }
