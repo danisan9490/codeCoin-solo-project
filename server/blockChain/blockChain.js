@@ -13,23 +13,23 @@ class BlockChain {
     this.usersPublicKeys = [];
   }
 
-  generateUser(name, userName, password) {
-    let newUser = new User()
-    newUser.createUser(name, userName, password);
-    if (this.usersPublicKeys.indexOf(newUser.publickey) >= 0) return console.log("User already exists");
-    this.usersPublicKeys.push(newUser.publickey);
-    console.log('Your public Key is: ', newUser.publickey);
-    console.log('Your private Key is: ', newUser.privateKey);
-  }
-
   createGenesisBlock() {
     let date = new Date(Date.now());
     return new Block(date.toString(), 'Genesis Block', '0');
   }
 
+  generateUser(name, userName, password) {
+    let newUser = new User();
+    newUser.createUser(name, userName, password);
+
+    if (this.usersPublicKeys.indexOf(newUser.publickey) >= 0) return console.log("User already exists.");
+    this.usersPublicKeys.push(newUser.publickey);
+
+    console.log('Your public Key is: ', newUser.publickey);
+    console.log('Your private Key is: ', newUser.privateKey);
+  }
 
   addTransaction(fromAddressPublicKey, toAddressPublicKey, amount, fromAddressPrivateKey) {
-
     /*-- CHECK IF THE USER EXIST --*/
     if (this.usersPublicKeys.indexOf(toAddressPublicKey) >= 0) {
       let fromAddBalance = this.getBalanceOfAddress(fromAddressPublicKey);
@@ -38,22 +38,20 @@ class BlockChain {
       /*-- CHECK USER BALANCE --*/
       if (newBalance < amount) {
         return console.log('Sorry, you do not have enough money. Try to mine the next block to get more codeCoins.');
-      } else {
 
+      } else {
         /*-- CHECKING SIGNATURE AND ADDING TRANSACTION--*/
         if (SHA256(fromAddressPrivateKey).toString() === fromAddressPublicKey) {
           let newTrans = new Transaction(fromAddressPublicKey, toAddressPublicKey, amount)
           this.pendingTransactions.push(newTrans)
           return console.log('Last transaction added:', newTrans);
-        } else return console.log('Private key does not match with public key');
+        } else return console.log('Private key does not match with public key.');
       }
 
-    } else return console.log('This Public Key does not exist');
-
+    } else return console.log('This Public Key does not exist.');
   }
 
   mineNewBlock(publicMinerAddress) {
-
     if (this.validateBlockChain() === true) {
       if (this.usersPublicKeys.indexOf(publicMinerAddress) >= 0) {
         /* -- MINING THE BLOCK --*/
@@ -77,15 +75,15 @@ class BlockChain {
         /* -- CHANGE DIFFICULTY --*/
         const previousDate = Date.parse(block.timestamp);
         const newDate = Date.parse(oldHash.timestamp);
-        if ((previousDate + 60000) < newDate && this.difficulty > 1) 'this.difficulty--';
+        if ((previousDate + 60000) < newDate && this.difficulty > 1) this.difficulty--;
         else this.difficulty++;
         console.log(`New difficulty: ${this.difficulty}`);
 
-      } else return console.log("This Public Key does not exist");
+      } else return console.log("This Public Key does not exist.");
 
     } else {
       console.log(`Mining the block...`);
-      console.log(`Error, Block validation: ${this.validateBlockChain()}`);
+      console.log(`Error, Block validation: ${this.validateBlockChain()}.`);
     }
   }
 
@@ -94,12 +92,13 @@ class BlockChain {
     if (this.usersPublicKeys.indexOf(publicKey) >= 0) {
       for (const block of this.chain) {
         for (const transaction of block.transactions) {
-
           if (transaction.fromAddressPublicKey === publicKey) balance -= transaction.amount;
           if (transaction.toAddressPublicKey === publicKey) balance += transaction.amount;
         }
       }
-    } else return console.log("No users with this Key");
+
+    } else return console.log("No users with this Key.");
+
     console.log("Your balance is: ", balance);
     return balance;
   }
@@ -118,6 +117,7 @@ class BlockChain {
       for (const transaction of this.pendingTransactions) {
         if (transaction.toAddressPublicKey === publicKey) pendingBalanceToAddress += transaction.amount;
       }
+
     } else return;
     console.log("Your pending balance is: ", pendingBalanceToAddress);
     return pendingBalanceToAddress;
