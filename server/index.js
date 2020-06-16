@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const Peer = require('./p2p-Server');
 
 const app = express();
 const PORT = parseFloat(process.env.PORT);
+app.use(cors());
 app.use(bodyParser.json());
 
 const Blockchain = require('./blockChain/blockChain');
@@ -12,6 +14,7 @@ const peerServer = new Peer(PORT + 1, codeCoin);
 
 
 app.get('/balance/:publicKey', (req, res) => {
+  console.log(req.params.publicKey)
   codeCoin.getBalanceOfAddress(req.params.publicKey);
   codeCoin.getPendingBalanceToAddress(req.params.publicKey);
   codeCoin.getHistoryOfAddress(req.params.publicKey)
@@ -45,4 +48,5 @@ app.listen(PORT, () => {
 });
 
 
+//  PORT=3001 nodemon index.js
 //  PORT=4000 nodemon index.js
