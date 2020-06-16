@@ -25,8 +25,8 @@ class BlockChain {
     if (this.usersPublicKeys.indexOf(newUser.publickey) >= 0) return console.log("User already exists.");
     this.usersPublicKeys.push(newUser.publickey);
 
-    console.log('Your public Key is: ', newUser.publickey);
-    console.log('Your private Key is: ', newUser.privateKey);
+    console.log('Your Public Key is: ', newUser.publickey);
+    console.log('Your Private Key is: ', newUser.privateKey);
   }
 
   addTransaction(fromAddressPublicKey, toAddressPublicKey, amount, fromAddressPrivateKey) {
@@ -48,7 +48,7 @@ class BlockChain {
         } else return console.log('Private key does not match with public key.');
       }
 
-    } else return console.log('This Public Key does not exist.');
+    } else return console.log('toAddressPublicKey does not exist.');
   }
 
   mineNewBlock(publicMinerAddress) {
@@ -73,11 +73,11 @@ class BlockChain {
         console.log('New reward added:', this.pendingTransactions);
 
         /* -- CHANGE DIFFICULTY --*/
-        const previousDate = Date.parse(block.timestamp);
-        const newDate = Date.parse(oldHash.timestamp);
-        if ((previousDate + 60000) < newDate && this.difficulty > 1) this.difficulty--;
-        else this.difficulty++;
-        console.log(`New difficulty: ${this.difficulty}`);
+        // const previousDate = Date.parse(block.timestamp);
+        // const newDate = Date.parse(oldHash.timestamp);
+        // if ((previousDate + 60000) < newDate && this.difficulty > 1) this.difficulty--;
+        // else this.difficulty++;
+        // console.log(`New difficulty: ${this.difficulty}`);
 
       } else return console.log("This Public Key does not exist.");
 
@@ -97,7 +97,7 @@ class BlockChain {
         }
       }
 
-    } else return console.log("No users with this Key.");
+    } else return console.log("This Public Key does not exist.");
 
     console.log("Your balance is: ", balance);
     return balance;
@@ -123,6 +123,27 @@ class BlockChain {
     return pendingBalanceToAddress;
   }
 
+  getHistoryOfAddress(publicKey) {
+    if (this.usersPublicKeys.indexOf(publicKey) >= 0) {
+      console.log("");
+      console.log("-------------- COMPLETED TRANSACTIONS -------------------");
+      for (const block of this.chain) {
+        for (const transaction of block.transactions) {
+          if (transaction.fromAddressPublicKey === publicKey) {
+            console.log("To:", transaction.toAddressPublicKey);
+            console.log("Amount: -", transaction.amount);
+            console.log("---------------");
+          }
+          if (transaction.toAddressPublicKey === publicKey) {
+            console.log("From:", transaction.fromAddressPublicKey);
+            console.log("Amount: +", transaction.amount);
+            console.log("---------------");
+          }
+        }
+      }
+    } else return;
+  }
+
   validateBlockChain() {
     for (let i = 1; i < this.chain.length; i++) {
       const currentBlock = this.chain[i];
@@ -144,7 +165,6 @@ class BlockChain {
   //     this.chain = newChain;
   //   }
   // }
-
 }
 
 module.exports = BlockChain;

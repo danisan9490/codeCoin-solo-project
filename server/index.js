@@ -14,7 +14,7 @@ const peerServer = new Peer(PORT + 1, codeCoin);
 app.get('/balance/:publicKey', (req, res) => {
   codeCoin.getBalanceOfAddress(req.params.publicKey);
   codeCoin.getPendingBalanceToAddress(req.params.publicKey);
-
+  codeCoin.getHistoryOfAddress(req.params.publicKey)
   res.json(codeCoin);
 })
 
@@ -38,11 +38,10 @@ app.post('/addtrans', (req, res) => {
 })
 
 
-
 // console.log(JSON.stringify(codeCoin, null, 6));
 
 app.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`)
+  console.log(`Listening on http://localhost:${PORT}`);
 });
 
 
