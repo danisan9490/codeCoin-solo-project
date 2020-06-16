@@ -13,12 +13,20 @@ const codeCoin = new Blockchain();
 const peerServer = new Peer(PORT + 1, codeCoin);
 
 
-app.get('/balance/:publicKey', (req, res) => {
-  console.log(req.params.publicKey)
-  codeCoin.getBalanceOfAddress(req.params.publicKey);
-  codeCoin.getPendingBalanceToAddress(req.params.publicKey);
-  codeCoin.getHistoryOfAddress(req.params.publicKey)
-  res.json(codeCoin);
+app.get('/balance/:publicKey', async (req, res) => {
+  try {
+    const balance = codeCoin.getBalanceOfAddress(req.params.publicKey);
+    const pendingBalance = codeCoin.getPendingBalanceToAddress(req.params.publicKey);
+    // const transHistory = codeCoin.getHistoryOfAddress(req.params.publicKey);
+    res.status(200);
+    res.json({ balance, pendingBalance });
+    console.log({ balance, pendingBalance });
+
+  } catch (error) {
+    console.log('error', error);
+    res.sendStatus(500);
+  }
+  // res.json(codeCoin);
 })
 
 app.post('/user', (req, res) => {

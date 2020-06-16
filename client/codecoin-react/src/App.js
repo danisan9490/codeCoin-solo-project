@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import ApiService from './ApiService';
 
@@ -7,10 +7,11 @@ import NewUserForm from './components/Banking/newUser/newUserForm';
 import GetBalanceForm from './components/Banking/Balance/balanceForm';
 import AddTransaction from './components/Banking/TransacForm/transactionForm';
 import MineBlock from './components/Banking/mineBlock/mineblock';
+import Balance from './components/Banking/Balance/balance';
 
 function App() {
 
-  // const [events, setEvents] = useState([]);
+  const [state, setState] = useState([]);
   // useEffect(() => {
   //   ApiService.getEvents()
   //     .then(events => setEvents(events));
@@ -26,11 +27,11 @@ function App() {
   }
   function mineBlock(body) {
     ApiService.mineBlock(body)
-    // .then(event => setEvents((events) => [...events, event]));
+      .then(alert("block mined"));
   }
   function getBalance(body) {
     ApiService.getBalance(body)
-    // .then(event => setEvents((events) => [...events, event]));
+      .then(state => (setState(state)));
   }
 
   return (
@@ -38,6 +39,7 @@ function App() {
       <NavBar />
       <NewUserForm generateUser={generateUser} />
       <GetBalanceForm getBalance={getBalance} />
+      <Balance state={state} />
       <AddTransaction generateTransaction={generateTransaction} />
       <MineBlock mineBlock={mineBlock} />
     </div>

@@ -34,11 +34,9 @@ function mineBlock(body) {
 }
 
 function getBalance(publicKey, dir) {
-  console.log(publicKey)
   return fetchRequest(`/balance/${publicKey}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-
   });
 }
 

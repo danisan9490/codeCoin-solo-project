@@ -30,6 +30,7 @@ class BlockChain {
   }
 
   addTransaction(fromAddressPublicKey, toAddressPublicKey, amount, fromAddressPrivateKey) {
+    if (fromAddressPublicKey === toAddressPublicKey) return console.log("Invalid transaction ")
     /*-- CHECK IF THE USER EXIST --*/
     if (this.usersPublicKeys.indexOf(toAddressPublicKey) >= 0) {
       let fromAddBalance = this.getBalanceOfAddress(fromAddressPublicKey);
@@ -125,21 +126,29 @@ class BlockChain {
 
   getHistoryOfAddress(publicKey) {
     if (this.usersPublicKeys.indexOf(publicKey) >= 0) {
+      // const transHistory = [];
+      // const balance = 0;
       console.log("");
       console.log("-------------- COMPLETED TRANSACTIONS -------------------");
       for (const block of this.chain) {
         for (const transaction of block.transactions) {
           if (transaction.fromAddressPublicKey === publicKey) {
+            // balance -= transaction.amount;
+            // transHistory.push([transaction.toAddressPublicKey, balance]);
+            // balance = 0;
             console.log("To:", transaction.toAddressPublicKey);
             console.log("Amount: -", transaction.amount);
             console.log("---------------");
           }
           if (transaction.toAddressPublicKey === publicKey) {
+            // balance += transaction.amount;
+            // transHistory.push([transaction.fromAddressPublicKey, balance]);
+            // balance = 0;
             console.log("From:", transaction.fromAddressPublicKey);
             console.log("Amount: +", transaction.amount);
             console.log("---------------");
           }
-        }
+        } //return transHistory;
       }
     } else return;
   }
