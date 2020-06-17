@@ -16,7 +16,7 @@ function Userkeys({ stateKeys }) {
       <div className="row">
         <div className="container mt-3">
           <h4>Private Key</h4>
-          <h6>Use this key to Check your balance.</h6>
+          <h6>Use this key to Sign and Send codeCoins.</h6>
           {
             stateKeys === [] ? "" : stateKeys.privateKey
           }
