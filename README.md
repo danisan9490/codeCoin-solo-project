@@ -1,4 +1,4 @@
-<img src="img/codeCoin.png" width="500">
+<img src="img/codeCoinHead1.png" width="500">
 
 ## Built With
 
