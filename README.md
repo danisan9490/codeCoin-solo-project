@@ -1,4 +1,4 @@
-<img src="img/codeCoinHead1.png" width="500">
+<img src="img/react/codeCoinHead1.png" width="500">
 
 ## Built With
 
@@ -60,13 +60,13 @@ npm start
 
 Now you can use codeCoin!
 
-<img src="img/codeCoinBody.png">
+<img src="img/react/codeCoinBody.png">
 
 You can mine new blocks. If you are not familiar with blockchain-mining, check this documentation:
 
 * [Mining blocks](https://www.investopedia.com/terms/b/bitcoin-mining.asp)
 
-<img src="img/codeCoinMine.png" width="900">
+<img src="img/react/codeCoinMine.png" width="900">
 
 ### Result
 

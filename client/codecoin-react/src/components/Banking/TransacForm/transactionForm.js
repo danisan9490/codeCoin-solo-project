@@ -41,7 +41,7 @@ function AddTransaction({ generateTransaction }) {
         </div>
         <div className="p-2">
 
-          <input type="text" className="form-control" placeholder="Signature (Privet Key)" name="fromAddPrivateKey" value={state.fromAddPrivateKey} onChange={handleChange} />
+          <input type="text" className="form-control" placeholder="Signature (Private Key)" name="fromAddPrivateKey" value={state.fromAddPrivateKey} onChange={handleChange} />
         </div>
         <div className="p-2">
           <button type="submit" className="btn btn-secondary btn-block">Add transaction</button>

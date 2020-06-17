@@ -29,9 +29,9 @@ app.get('/balance/:publicKey', async (req, res) => {
 app.post('/user', (req, res) => {
   try {
     const keys = codeCoin.generateUser(req.body.name, req.body.userName, req.body.password);
+    peerServer.sendChain();
     res.status(200);
     res.json(keys);
-    peerServer.sendChain();
   } catch (error) {
     console.log('error', error);
     res.sendStatus(500);
@@ -59,5 +59,5 @@ app.listen(PORT, () => {
 });
 
 
-//  PORT=3001 nodemon index.js
+//  PORT=3000 nodemon index.js
 //  PORT=4000 nodemon index.js

@@ -26,7 +26,7 @@ function MineBlock({ mineBlock }) {
     <form className="form mt-5" onSubmit={handleSubmit}>
       <div className="container  text-center">
         <h2>Mine Block</h2>
-        <h6>Mining you can a new Block to the Chain and get 50 codeCoins reward!</h6>
+        <h6>Mining you can create and add a new Block to the Chain. You will get a 50 codeCoins reward!</h6>
         <div className="p-2">
           <input type="text" className="form-control " placeholder="Public Key" name="publicMinerAddress" value={state.publicMinerAddress} onChange={handleChange} />
         </div>
