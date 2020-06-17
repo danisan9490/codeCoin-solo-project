@@ -26,22 +26,25 @@ function AddTransaction({ generateTransaction }) {
   }
 
   return (
-    <form classfromAddressPublicKey="form  bg-primary" onSubmit={handleSubmit}>
-      <div classfromAddressPublicKey="form-row height ">
-        <div classfromAddressPublicKey="col-7">
-          <input type="text" classfromAddressPublicKey="form-control " placeholder="fromAddressPublicKey" name="fromAddressPublicKey" value={state.fromAddressPublicKey} onChange={handleChange} />
+    <form className="form " onSubmit={handleSubmit}>
+      <div className="col-6 p-3" >
+        <h3>Create transaction</h3>
+        <div className="p-2">
+          <input type="text" className="form-control " placeholder="From Public Key" name="fromAddressPublicKey" value={state.fromAddressPublicKey} onChange={handleChange} />
         </div>
-        <div classfromAddressPublicKey="col">
-          <input type="text" classfromAddressPublicKey="form-control" placeholder="toAddressPublicKey" name="toAddressPublicKey" value={state.toAddressPublicKey} onChange={handleChange} />
+        <div className="p-2">
+          <input type="text" className="form-control" placeholder="To Public Key" name="toAddressPublicKey" value={state.toAddressPublicKey} onChange={handleChange} />
         </div>
-        <div classfromAddressPublicKey="col">
-          <input type="text" classfromAddressPublicKey="form-control" placeholder="amount" name="amount" value={state.amount} onChange={handleChange} />
+        <div className="p-2">
+
+          <input type="text" className="form-control" placeholder="Amount" name="amount" value={state.amount} onChange={handleChange} />
         </div>
-        <div classfromAddressPublicKey="col">
-          <input type="text" classfromAddressPublicKey="form-control" placeholder="fromAddPrivateKey" name="fromAddPrivateKey" value={state.fromAddPrivateKey} onChange={handleChange} />
+        <div className="p-2">
+
+          <input type="text" className="form-control" placeholder="Signature (Privet Key)" name="fromAddPrivateKey" value={state.fromAddPrivateKey} onChange={handleChange} />
         </div>
-        <div classfromAddressPublicKey="col">
-          <button type="submit" classfromAddressPublicKey="btn btn-secondary btn-block">Add transaction</button>
+        <div className="p-2">
+          <button type="submit" className="btn btn-secondary btn-block">Add transaction</button>
         </div>
       </div>
     </form>

@@ -15,24 +15,27 @@ const peerServer = new Peer(PORT + 1, codeCoin);
 
 app.get('/balance/:publicKey', async (req, res) => {
   try {
-    const balance = codeCoin.getBalanceOfAddress(req.params.publicKey);
-    const pendingBalance = codeCoin.getPendingBalanceToAddress(req.params.publicKey);
+    const balance = await codeCoin.getBalanceOfAddress(req.params.publicKey);
+    const pendingBalance = await codeCoin.getPendingBalanceToAddress(req.params.publicKey);
     // const transHistory = codeCoin.getHistoryOfAddress(req.params.publicKey);
     res.status(200);
     res.json({ balance, pendingBalance });
-    console.log({ balance, pendingBalance });
-
   } catch (error) {
     console.log('error', error);
     res.sendStatus(500);
   }
-  // res.json(codeCoin);
 })
 
 app.post('/user', (req, res) => {
-  codeCoin.generateUser(req.body.name, req.body.userName, req.body.password);
-  peerServer.sendChain();
-  res.redirect('/balance');
+  try {
+    const keys = codeCoin.generateUser(req.body.name, req.body.userName, req.body.password);
+    res.status(200);
+    res.json(keys);
+    peerServer.sendChain();
+  } catch (error) {
+    console.log('error', error);
+    res.sendStatus(500);
+  }
 })
 
 app.post('/mine', (req, res) => {

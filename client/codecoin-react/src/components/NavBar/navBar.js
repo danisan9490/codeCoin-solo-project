@@ -4,13 +4,13 @@ import React from 'react';
 function NavBar() {
 
   return (
-    <nav class="navbar text-white bg-primary justify-content-between ">
-      <div class="navbar-brand bg-primary"> <h1>codeCoin</h1></div>
-      <form class="form-inline">
-        {/* <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" /> */}
-        {/* <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> */}
-      </form>
-    </nav>
+    <div className="position-relative overflow-hidden p-1 p-md-1  text-center bg-light">
+      <div className="col-md-5 p-lg-3 mx-auto my-5">
+        <img src="https://cdn.pixabay.com/photo/2018/02/18/20/48/bitcoin-3163494_960_720.png" style={{ maxWidth: 450 }} alt="" />
+        <h1 className="display-4 font-weight-bold">codeCoin</h1>
+        <p className="lead font-weight-normal">A new coin based in the blockChain</p>
+      </div>
+    </div>
   );
 }
 export default NavBar;

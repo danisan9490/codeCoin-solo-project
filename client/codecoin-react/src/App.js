@@ -7,41 +7,45 @@ import NewUserForm from './components/Banking/newUser/newUserForm';
 import GetBalanceForm from './components/Banking/Balance/balanceForm';
 import AddTransaction from './components/Banking/TransacForm/transactionForm';
 import MineBlock from './components/Banking/mineBlock/mineblock';
-import Balance from './components/Banking/Balance/balance';
 
 function App() {
 
-  const [state, setState] = useState([]);
-  // useEffect(() => {
-  //   ApiService.getEvents()
-  //     .then(events => setEvents(events));
-  // }, [])
+  const [stateKeys, setStateKeys] = useState([])
+  const [stateBalance, setStateBalance] = useState([]);
 
   function generateUser(body) {
     ApiService.generateUser(body)
-    // .then(event => setEvents((events) => [...events, event]));
+      .then(stateKeys => (setStateKeys(stateKeys)));
   }
   function generateTransaction(body) {
     ApiService.generateTransaction(body)
-    // .then(event => setEvents((events) => [...events, event]));
+      .then(alert("Added to Pending Transactions"));
   }
   function mineBlock(body) {
     ApiService.mineBlock(body)
-      .then(alert("block mined"));
+      .then(alert("Block successfully mined"));
   }
   function getBalance(body) {
     ApiService.getBalance(body)
-      .then(state => (setState(state)));
+      .then(stateBalance => setStateBalance(stateBalance));
   }
 
   return (
     <div className="App">
       <NavBar />
-      <NewUserForm generateUser={generateUser} />
-      <GetBalanceForm getBalance={getBalance} />
-      <Balance state={state} />
-      <AddTransaction generateTransaction={generateTransaction} />
+      <div>
+        <GetBalanceForm
+          getBalance={getBalance}
+          stateBalance={stateBalance} />
+        <AddTransaction generateTransaction={generateTransaction} />
+        <NewUserForm
+          generateUser={generateUser}
+          stateKeys={stateKeys}
+        />
+      </div>
+
       <MineBlock mineBlock={mineBlock} />
+
     </div>
   );
 }

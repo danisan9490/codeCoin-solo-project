@@ -23,12 +23,14 @@ function MineBlock({ mineBlock }) {
   }
 
   return (
-    <form className="form  bg-primary" onSubmit={handleSubmit}>
-      <div className="form-row height ">
-        <div className="col-7">
-          <input type="text" className="form-control " placeholder="Mine block" name="publicMinerAddress" value={state.publicMinerAddress} onChange={handleChange} />
+    <form className="form mt-5" onSubmit={handleSubmit}>
+      <div className="container  text-center">
+        <h2>Mine Block</h2>
+        <h6>Mining you can a new Block to the Chain and get 50 codeCoins reward!</h6>
+        <div className="p-2">
+          <input type="text" className="form-control " placeholder="Public Key" name="publicMinerAddress" value={state.publicMinerAddress} onChange={handleChange} />
         </div>
-        <div className="col">
+        <div className="p-2">
           <button type="submit" className="btn btn-secondary btn-block">Mine Block</button>
         </div>
       </div>

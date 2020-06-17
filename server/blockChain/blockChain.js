@@ -22,11 +22,18 @@ class BlockChain {
     let newUser = new User();
     newUser.createUser(name, userName, password);
 
-    if (this.usersPublicKeys.indexOf(newUser.publickey) >= 0) return console.log("User already exists.");
+    if (this.usersPublicKeys.indexOf(newUser.publickey) >= 0) {
+      console.log("User already exists.");
+      return [];
+    }
     this.usersPublicKeys.push(newUser.publickey);
-
     console.log('Your Public Key is: ', newUser.publickey);
     console.log('Your Private Key is: ', newUser.privateKey);
+    return {
+      publicKey: newUser.publickey,
+      privateKey: newUser.privateKey
+    }
+
   }
 
   addTransaction(fromAddressPublicKey, toAddressPublicKey, amount, fromAddressPrivateKey) {
@@ -116,9 +123,12 @@ class BlockChain {
     let pendingBalanceToAddress = 0;
     if (this.usersPublicKeys.indexOf(publicKey) >= 0) {
       for (const transaction of this.pendingTransactions) {
-        if (transaction.toAddressPublicKey === publicKey) pendingBalanceToAddress += transaction.amount;
+        if (transaction.toAddressPublicKey === publicKey) {
+          // console.log(transaction.amount)
+          pendingBalanceToAddress = pendingBalanceToAddress + transaction.amount;
+          // console.log(pendingBalanceToAddress)
+        }
       }
-
     } else return;
     console.log("Your pending balance is: ", pendingBalanceToAddress);
     return pendingBalanceToAddress;
@@ -134,7 +144,7 @@ class BlockChain {
         for (const transaction of block.transactions) {
           if (transaction.fromAddressPublicKey === publicKey) {
             // balance -= transaction.amount;
-            // transHistory.push([transaction.toAddressPublicKey, balance]);
+            // transHistory.push(transaction.toAddressPublicKey, balance);
             // balance = 0;
             console.log("To:", transaction.toAddressPublicKey);
             console.log("Amount: -", transaction.amount);
@@ -142,14 +152,16 @@ class BlockChain {
           }
           if (transaction.toAddressPublicKey === publicKey) {
             // balance += transaction.amount;
-            // transHistory.push([transaction.fromAddressPublicKey, balance]);
+            // transHistory.push(transaction.fromAddressPublicKey, balance);
             // balance = 0;
             console.log("From:", transaction.fromAddressPublicKey);
             console.log("Amount: +", transaction.amount);
             console.log("---------------");
           }
-        } //return transHistory;
+        }
       }
+      // console.log("------------", transHistory)
+      // return transHistory;
     } else return;
   }
 

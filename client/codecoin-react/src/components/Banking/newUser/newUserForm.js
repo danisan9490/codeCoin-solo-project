@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Userkeys from './newUserKeys';
 
 const initialState = {
   name: '',
@@ -6,7 +7,7 @@ const initialState = {
   password: '',
 };
 
-function NewUserForm({ generateUser }) {
+function NewUserForm({ generateUser, stateKeys }) {
 
   const [state, setState] = useState(initialState);
 
@@ -25,22 +26,33 @@ function NewUserForm({ generateUser }) {
   }
 
   return (
-    <form className="form  bg-primary" onSubmit={handleSubmit}>
-      <div className="form-row height ">
-        <div className="col-7">
+    <form className="form-group row mt-3 " onSubmit={handleSubmit}>
+
+      <div className="col-6 p-3 ml-3 flex-inline">
+        <h3>Create User</h3>
+
+        <div className="p-2">
           <input type="text" className="form-control " placeholder="NAME" name="name" value={state.name} onChange={handleChange} />
         </div>
-        <div className="col">
-          <input type="text" className="form-control" placeholder="USERNAME" name="userName" value={state.userName} onChange={handleChange} />
+
+        <div className="p-2">
+          <input type="text" className="form-control" placeholder="SURNAME" name="userName" value={state.userName} onChange={handleChange} />
         </div>
-        <div className="col">
-          <input type="text" className="form-control" placeholder="PASSWORD" name="password" value={state.password} onChange={handleChange} />
+        <div className="p-2">
+          <input type="text" className="form-control" placeholder="USERNAME" name="password" value={state.password} onChange={handleChange} />
         </div>
-        <div className="col">
-          <button type="submit" className="btn btn-secondary btn-block">Create User</button>
+        <div className="p-2">
+          <button type="submit" className="btn btn-secondary btn-block">Create</button>
         </div>
+
+      </div >
+
+      <div className="mr-5">
+        <Userkeys stateKeys={stateKeys} />
       </div>
-    </form>
+
+    </form >
+
   );
 }
 export default NewUserForm;
