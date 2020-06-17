@@ -1,4 +1,4 @@
-<img src="img/react/codeCoinHead1.png" width="500">
+<img src="img/react/codeCoinHead1.png" width="900">
 
 ## Built With
 
